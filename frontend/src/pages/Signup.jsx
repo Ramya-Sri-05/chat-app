@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import AuthInput from '../components/AuthInput';
+import AuthLayout from '../components/AuthLayout';
 import { useAuth } from '../context/AuthContext';
 
 const Signup = () => {
@@ -32,52 +34,75 @@ const Signup = () => {
   };
 
   return (
-    <div className="auth-page">
-      <form className="auth-card" onSubmit={handleSubmit}>
-        <h2>Create Account ✨</h2>
-        <p className="auth-card__subtitle">Join and start chatting in real-time</p>
-
+    <AuthLayout
+      eyebrow="New workspace"
+      title="Chat instantly with your team."
+      subtitle="Create your account"
+      description="Join your team in a refined, distraction-free messaging experience."
+      features={[
+        { icon: '✦', label: 'Organized conversations' },
+        { icon: '⚡', label: 'Real-time collaboration' },
+        { icon: '✓', label: 'Secure by default' },
+      ]}
+      footerText="Already have an account?"
+      footerLinkText="Log in"
+      footerLinkTo="/login"
+      termsText="By creating an account, you agree to our Terms and Privacy Policy."
+    >
+      <form className="auth-form" onSubmit={handleSubmit}>
         {error && <p className="form-error">{error}</p>}
 
-        <label>Username</label>
-        <input
+        <AuthInput
+          id="username"
+          name="username"
+          label="Username"
           type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-          placeholder="john_doe"
+          placeholder="Choose a username"
+          icon="◌"
           minLength={3}
           maxLength={30}
-          required
+          autoComplete="username"
         />
 
-        <label>Email</label>
-        <input
+        <AuthInput
+          id="email"
+          name="email"
+          label="Email"
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="you@example.com"
-          required
+          placeholder="name@company.com"
+          icon="✉"
+          autoComplete="email"
         />
 
-        <label>Password</label>
-        <input
+        <AuthInput
+          id="password"
+          name="password"
+          label="Password"
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          placeholder="At least 6 characters"
+          placeholder="Create a password"
+          icon="◎"
           minLength={6}
-          required
+          autoComplete="new-password"
         />
 
         <button type="submit" className="btn btn--primary btn--full" disabled={loading}>
-          {loading ? 'Creating account...' : 'Sign Up'}
+          {loading ? (
+            <span className="btn__content">
+              <span className="spinner spinner--small" />
+              Creating account...
+            </span>
+          ) : (
+            'Create account'
+          )}
         </button>
-
-        <p className="auth-card__footer">
-          Already have an account? <Link to="/login">Login</Link>
-        </p>
       </form>
-    </div>
+    </AuthLayout>
   );
 };
 

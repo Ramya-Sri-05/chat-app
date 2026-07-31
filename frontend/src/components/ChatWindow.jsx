@@ -63,7 +63,7 @@ const ChatWindow = ({ activeChat, messages, onSendMessage }) => {
   if (!activeChat) {
     return (
       <div className="chat-window chat-window--empty">
-        <p>Select a room or a user to start chatting 💬</p>
+        <p>Select a room or a user to start chatting </p>
       </div>
     );
   }

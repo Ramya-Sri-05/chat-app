@@ -7,7 +7,7 @@ const Navbar = () => {
 
   return (
     <header className="navbar">
-      <div className="navbar__brand">💬 MERN Chat</div>
+      <div className="navbar__brand">Chatify</div>
       {user && (
         <div className="navbar__user">
           <OnlineStatusDot isOnline={true} />

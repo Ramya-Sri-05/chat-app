@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import AuthInput from '../components/AuthInput';
+import AuthLayout from '../components/AuthLayout';
 import { useAuth } from '../context/AuthContext';
 
 const Login = () => {
@@ -26,40 +28,60 @@ const Login = () => {
   };
 
   return (
-    <div className="auth-page">
-      <form className="auth-card" onSubmit={handleSubmit}>
-        <h2>Welcome Back 👋</h2>
-        <p className="auth-card__subtitle">Log in to continue chatting</p>
-
+    <AuthLayout
+      eyebrow="Secure access"
+      title="Chat instantly with your team."
+      subtitle="Welcome back"
+      description="Sign in to continue your conversations with a polished, modern workspace."
+      features={[
+        { icon: '✦', label: 'Real-time team rooms' },
+        { icon: '⚡', label: 'Instant collaboration' },
+        { icon: '✓', label: 'Private and secure' },
+      ]}
+      footerText="New here?"
+      footerLinkText="Create an account"
+      footerLinkTo="/signup"
+      termsText="By continuing, you agree to our Terms and Privacy Policy."
+    >
+      <form className="auth-form" onSubmit={handleSubmit}>
         {error && <p className="form-error">{error}</p>}
 
-        <label>Email</label>
-        <input
+        <AuthInput
+          id="email"
+          name="email"
+          label="Email"
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="you@example.com"
-          required
+          icon="✉"
+          autoComplete="email"
         />
 
-        <label>Password</label>
-        <input
+        <AuthInput
+          id="password"
+          name="password"
+          label="Password"
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          placeholder="••••••••"
-          required
+          placeholder="Enter your password"
+          icon="◎"
+          autoComplete="current-password"
         />
 
         <button type="submit" className="btn btn--primary btn--full" disabled={loading}>
-          {loading ? 'Logging in...' : 'Login'}
+          {loading ? (
+            <span className="btn__content">
+              <span className="spinner spinner--small" />
+              Signing in...
+            </span>
+          ) : (
+            'Sign in'
+          )}
         </button>
-
-        <p className="auth-card__footer">
-          Don't have an account? <Link to="/signup">Sign up</Link>
-        </p>
       </form>
-    </div>
+    </AuthLayout>
   );
 };
 
