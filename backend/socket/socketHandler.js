@@ -132,7 +132,7 @@ const initSocket = (io) => {
 
     // ---- Disconnect ----
     socket.on('disconnect', async () => {
-      console.log(`❌ Socket disconnected: ${socket.id} (user: ${userId})`);
+      console.log(`Socket disconnected: ${socket.id} (user: ${userId})`);
       removeOnlineUser(userId, socket.id);
 
       // Only mark the user offline if they have no other active sockets
